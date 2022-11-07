@@ -2,11 +2,11 @@
 
 - Clonar el proyecto y cambiar de rama
 ```bash
-git clone https://github.com/Silvinarodriguez1986/entrega_intermedia.git
+git clone https://github.com/Silvinarodriguez1986/final_project.git
 
-cd entrega_intermedia
+cd final_project
 
-git checkout entrega_intermedia
+git checkout final_project
 
 ```
 
