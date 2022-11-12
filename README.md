@@ -1,12 +1,12 @@
-# Instrucciones para ejecutar este proyecto
+# Instrucciones para ejecutar el proyecto final 
 
 - Clonar el proyecto y cambiar de rama
 ```bash
-git clone https://github.com/Silvinarodriguez1986/entrega_intermedia.git
+git clone 
 
-cd entrega_intermedia
+cd final_project
 
-git checkout entrega_intermedia
+git checkout final_project
 
 ```
 
@@ -29,7 +29,7 @@ pip install -r requirements.txt
 
 - Como ya tenemos el proyecto `entregaI` creado navegamos hacia la carpeta del proyecto `entregaI`
 ```bash
-cd entregaI
+cd film_blog
 ```
 
 - Se ejecuta la migración para crear la base de datos con la que trabajará nuestro proyecto de Django
