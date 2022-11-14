@@ -28,7 +28,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-- Como ya tenemos el proyecto `entregaI` creado navegamos hacia la carpeta del proyecto `entregaI`
+- Como ya tenemos el proyecto `final_project` creado navegamos hacia la carpeta del proyecto `final_project`
 ```bash
 cd film_blog
 ```
