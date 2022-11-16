@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies</title>
-</head>
-<body>
-    <ul>
-        {% for movie in movies %}
-        
-        <li>{{ movie }}</li>
+{% extends "home/index.html" %}
 
-        {% endfor %}
-    </ul>
-  
+{% load static %}
 
+{% block titulo %} Movies {% endblock %}
 
+{% block contenido %}
 
-</body>
-</html>
+Movies
+
+{% endblock %}
+ 

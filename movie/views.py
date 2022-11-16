@@ -3,7 +3,7 @@ from django.shortcuts import render
 from movie.models import Movie
 
 def movies(request):
-    mivies = Movie.objects.all()
+    movies = Movie.objects.all()
 
     context_dict = {"movies": movies}
 
