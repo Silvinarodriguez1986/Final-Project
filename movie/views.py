@@ -15,7 +15,7 @@ from django.forms.models import model_to_dict
 
 def get_movies(request):
     movies = Movie.objects.all()
-    paginator = Paginator(movies, 3)
+    paginator = Paginator(movies, 2)
     page_number = request.GET.get("page")
     return paginator.get_page(page_number)
 
@@ -138,7 +138,7 @@ from movie.models import Movie
 
 class MovieListView(ListView):
     model = Movie
-    paginate_by = 3
+    paginate_by = 2
 
 
 class MovieDetailView(DetailView):
