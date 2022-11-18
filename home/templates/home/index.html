@@ -36,7 +36,10 @@
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:index' %}">Home</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'movie:movie-list' %}">Movies</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Series</a></li>
-                    </ul>
+                        
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        
+                        
                 </div>
             </div>
         </nav>
@@ -57,6 +60,23 @@
         </header>
         {% endblock %}
 
+            <!-- Messages-->
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert {{ message.tags }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                            <!-- Divider-->
+                            <hr class="my-4" />
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
         <!-- Main Content-->
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -64,22 +84,59 @@
                     
                     {% block film_blog_content %}
 
+                    <!-- Buscador -->
+                    <h3>Antes de ver algo</h3>
+                    <h3>Mejor fijate que dice movicon</h3>
+                    <h5>Encontra las reseñas de la pelicula o seria que quieras ver!!
+                        Moviecon es la garantia de que vas a ver una buena produccion y no una copia barata
+                    </h5>
+                    <form action="{% url 'home:search' %}" method="GET">
+                        <div>
+                            <input type="text" name="search_param" id="course_code_or_name" placeholder="Buscar.."
+                            {% if search_param %} value="{{ search_param }}" {% endif %}
+                            >
+                            <input type="submit" value="Buscar">
+                            <a style="color: blue" href="{% url 'home:index' %}"><i class="fa fa-undo"></i></a>
+                        </div>
+                    </form>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+
+                    <!-- Si hay resultados en el buscador los presenta -->
+                    {% if movies %}
+                    {% for movie in movies %}
+                        <!-- Post preview-->
+                        <div class="post-preview">
+                            <h2 class="post-title">Tu pelicules es {{ movie.title }}</h2>
+                            <h3 class="post-subtitle">Genero {{ movie.genre }}</h3>
+                            <p class="post-meta">
+                                Creado por
+                                <a href="#!">Start Bootstrap</a> 
+                                en {{ movie.created_at }}
+                            </p>
+                        </div>
+                        <!-- Divider-->
+                        <hr class="my-4" />
+                    {% endfor %}
+                    {% endif %}
+
                     <!-- Post preview-->
                     <div class="#!">
                         <a href="#!">
-                            <h2 class="post-title">asddasda</h2>
-                            <h3 class="post-subtitle">Prdasdsd small faasdiles up</h3>
+                            <h2 class="post-title">Somos los mejores en python</h2>
+                            <h6 class="post-subtitle">Bueno quizas no los mejores pero nos esforzamos mucho</h6>
                         </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on September 24, 2022
+                        <p>
+                            Silvina Rodriguez
+                        </p>
+                        <p>
+                            Juan Pablo Gómez Cristancho
+                        </p>
+                        <p>
+                            Jose Fernandez
                         </p>
                     </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
                     <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
                     {% endblock %}
 
                 </div>
