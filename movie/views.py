@@ -40,7 +40,7 @@ def create_movie(request):
                 movie.save()
                 messages.success(
                     request,
-                     f"La pelicula {data['title']} - {data['genre']} - {data['duration']}- {data['description']}  creado exitosamente",
+                    f"La pelicula {data['title']} - {data['genre']} - {data['duration']}- {data['description']}  creado exitosamente",
                 )
 
             return render(
@@ -162,8 +162,7 @@ class MovieCreateView(CreateView):
         if actual_objects:
             messages.error(
                 self.request,
-                 f"La pelicula {data['title']} - {data['genre']} - {data['duration']} - {data['description']}  ya está creado",
-             
+                f"La pelicula {data['title']} - {data['genre']} - {data['duration']} - {data['description']}  ya está creado",
             )
             form.add_error("title", ValidationError("Acción no válida"))
             return super().form_invalid(form)
@@ -171,7 +170,7 @@ class MovieCreateView(CreateView):
             messages.success(
                 self.request,
                 f"La pelicula {data['title']} - {data['genre']} - {data['duration']}- {data['description']}  creado exitosamente",
-               
+            
             )
             return super().form_valid(form)
 
