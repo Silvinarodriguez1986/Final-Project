@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.template import loader
 from movie.models import Movie
 from movie.forms import MovieForm 
+from django.forms.models import model_to_dict
 
 
 
@@ -62,4 +63,67 @@ def movies(request):
         request=request,
         context={"movies": get_movies(request)},
         template_name="movie/movie_list.html",
+    )
+
+
+
+def movie_detail(request, pk: int):
+    return render(
+        request=request,
+        context={"movie": Movie.objects.get(pk=pk)},
+        template_name="movie/movie_detail.html",
+    )
+
+
+def movie_update(request, pk: int):
+    movie = Movie.objects.get(pk=pk)
+
+    if request.method == "POST":
+        movie_form = MovieForm(request.POST)
+        if movie_form.is_valid():
+            data = movie_form.cleaned_data
+            movie.title = data["title"]
+            movie.description = data["description"]
+            movie.genre = data["genre"]
+            movie.duration = data["duration"]
+            movie.save()
+
+            return render(
+                request=request,
+                context={"movie": movie},
+                template_name="movie/movie_detail.html",
+            )
+
+    movie_form = MovieForm(model_to_dict(movie))
+    context_dict = {
+        "movie": movie,
+        "form": movie_form,
+    }
+    return render(
+        request=request,
+        context=context_dict,
+        template_name="movie/movie_form.html",
+    )
+
+
+def movie_delete(request, pk: int):
+    movie = Movie.objects.get(pk=pk)
+    if request.method == "POST":
+        movie.delete()
+
+        movies = Movie.objects.all()
+        context_dict = {"movie_list": movies}
+        return render(
+            request=request,
+            context=context_dict,
+            template_name="movie/movie_list.html",
+        )
+
+    context_dict = {
+        "movie": movie,
+    }
+    return render(
+        request=request,
+        context=context_dict,
+        template_name="movie/movie_confirm_delete.html",
     )
