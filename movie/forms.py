@@ -56,4 +56,3 @@ class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = ["title", "genre", "duration", "description"]
-  
