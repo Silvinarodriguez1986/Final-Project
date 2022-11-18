@@ -1,0 +1,49 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block film_blog_title %}
+Movie detail
+{% endblock %}
+
+{% block film_blog_header %}
+<header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>{{ movie.title }}</h1>
+                    <span class="subheading">Detalles de la pelicula</span>
+                </div>
+            </div>
+        </div>
+        <a class="button_custom" href="{% url 'movie:movie-add' %}">Crear nueva pelicula</a>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block my_blog_content %}
+<!-- Post preview-->
+<div class="post-preview">
+    <h3 class="post-subtitle">Genero: {{ movie.genre }}</h3>
+    <h3 class="post-subtitle">Duracion: {{ movie.duration }}</h3>
+
+    <p class="post-meta">
+        Creado por
+        <a href="#!">Start Bootstrap</a> 
+        en {{ movie.created_at }}
+        <br>
+        Última fecha de actualización {{ movie.updated_at }}
+    </p>
+    <p class="card-text ">{{ movie.description|safe }}</p> <!-- ckeditor-->
+    <p style="text-align: center">
+        <a href="{% url 'movie:movie-update' movie.id %}">
+            <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar
+        </a>
+        &ensp; | &ensp;
+        <a href="{% url 'movie:movie-delete' movie.id %}">
+            <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar 
+        </a>
+    </p>
+</div>
+{% endblock %}
