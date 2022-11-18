@@ -27,20 +27,20 @@ def create_movie(request):
         if movie_form.is_valid():
             data = movie_form.cleaned_data
             actual_objects = Movie.objects.filter(
-                title=data["title"], description=data["description"], genre=data["genre"], duration=data["duration"]
+                title=data["title"], genre=data["genre"], duration=data["duration"], description=data["description"]
             ).count()
             print("actual_objects", actual_objects)
             if actual_objects:
                 messages.error(
                     request,
-                    f"La pelicula {data['title']} - {data['description']} - {data['genre']} - {data['duration']} ya está creado",
+                    f"La pelicula {data['title']} - {data['genre']} - {data['duration']} - {data['description']}  ya está creado",
                 )
             else:
-                movie = Movie(title=data["title"], description=data["description"], genre=data["genre"], duration=data["duration"])
+                movie = Movie(title=data["title"], genre=data["genre"], duration=data["duration"], description=data["description"])
                 movie.save()
                 messages.success(
                     request,
-                     f"La pelicula {data['title']} - {data['description']} - {data['genre']} - {data['duration']} creado exitosamente",
+                     f"La pelicula {data['title']} - {data['genre']} - {data['duration']}- {data['description']}  creado exitosamente",
                 )
 
             return render(
@@ -83,9 +83,9 @@ def movie_update(request, pk: int):
         if movie_form.is_valid():
             data = movie_form.cleaned_data
             movie.title = data["title"]
-            movie.description = data["description"]
             movie.genre = data["genre"]
             movie.duration = data["duration"]
+            movie.description = data["description"]
             movie.save()
 
             return render(
@@ -127,3 +127,72 @@ def movie_delete(request, pk: int):
         context=context_dict,
         template_name="movie/movie_confirm_delete.html",
     )
+
+from django.core.exceptions import ValidationError
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+from movie.models import Movie
+
+class MovieListView(ListView):
+    model = Movie
+    paginate_by = 3
+
+
+class MovieDetailView(DetailView):
+    model = Movie
+    fields = ["title", "genre", "duration", "description"]
+
+
+class MovieCreateView(CreateView):
+    model = Movie
+    success_url = reverse_lazy("movie:movie-list")
+
+    form_class = MovieForm
+    # fields =  ["title", "genre", "duration", "description"]
+
+    def form_valid(self, form):
+        """Filter to avoid duplicate movies"""
+        data = form.cleaned_data
+        actual_objects = Movie.objects.filter(
+            title=data["title"], genre=data["genre"], duration=data["duration"], description=data["description"]
+        ).count()
+        if actual_objects:
+            messages.error(
+                self.request,
+                 f"La pelicula {data['title']} - {data['genre']} - {data['duration']} - {data['description']}  ya está creado",
+             
+            )
+            form.add_error("title", ValidationError("Acción no válida"))
+            return super().form_invalid(form)
+        else:
+            messages.success(
+                self.request,
+                f"La pelicula {data['title']} - {data['genre']} - {data['duration']}- {data['description']}  creado exitosamente",
+               
+            )
+            return super().form_valid(form)
+
+
+class MovieUpdateView(UpdateView):
+    model = Movie
+    fields = ["title", "genre", "duration", "description"]
+
+    def get_success_url(self):
+        movie_id = self.kwargs["pk"]
+        return reverse_lazy("movie:movie-detail", kwargs={"pk": movie_id})
+
+
+class MovieDeleteView(DeleteView):
+    model = Movie
+    success_url = reverse_lazy("movie:movie-list")
+
+
+
+
+
+
+
+

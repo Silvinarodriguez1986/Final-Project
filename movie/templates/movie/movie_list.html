@@ -1,14 +1,12 @@
-
 {% extends "home/index.html" %}
-
 {% load static %}
 
 {% block film_blog_title %}
-    movie
+Movie list
 {% endblock %}
 
 {% block film_blog_header %}
-<header class="masthead" style="background-image: url('../../static/home/assets/img/about-bg.jpg')">
+<header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
@@ -23,18 +21,17 @@
 </header>
 {% endblock %}
 
-{% block film_blog_content %}
 
+{% block film_blog_content %}
 {% for movie in movie_list %}
     <!-- Post preview-->
     <div class="post-preview">
         <a href="{% url 'movie:movie-detail' movie.id %}">
-        <h2 class="post-title">Titulo: {{ movie.title }}</h2>
-        <h3 class="post-subtitle">Descripcion: {{ movie.description }}</h3>
-        <h3 class="post-subtitle">Genero: {{ movie.genre}}</h3>
-        <h3 class="post-subtitle">Duracion: {{ movie.duration}}</h3>
+            <h2 class="post-title">Titulo: {{ movie.title }}</h2>
+            <h3 class="post-subtitle">Genero: {{ movie.genre}}</h3>
+            <h3 class="post-subtitle">Duracion: {{ movie.duration}}</h3>
+            <h3 class="post-subtitle">Descripcion: {{ movie.description }}</h3>
         </a>
-
         <p class="post-meta">
             Creado por
             <a href="#!">Start Bootstrap</a> 
@@ -43,7 +40,6 @@
     </div>
     <!-- Divider-->
     <hr class="my-4" />
-   
 {% endfor %}
 
 <!--Pagination-->
@@ -52,7 +48,7 @@
         <span class="step-links">
             {% if movie_list.has_previous %}
                 <a href="?page=1">&laquo; first</a> |
-                <a href="?page={{ movies.previous_page_number }}">previous</a> |
+                <a href="?page={{ movie_list.previous_page_number }}">previous</a> |
             {% endif %}
 
             {% if movie_list.paginator.num_pages > 1 %}
@@ -95,7 +91,6 @@
 </div>
 {% endif %}
 <!--end of Pagination-->
-
 
 {% endblock %}
 

@@ -1,10 +1,10 @@
+from ckeditor.widgets import CKEditorWidget
 from django import forms
 
-from ckeditor.widgets import CKEditorWidget
 from movie.models import Movie
 
 
-class MovieForm(forms.Form):
+class MovieForm(forms.ModelForm):
     title = forms.CharField(
         label="Nombre de la pelicula",
         required=False,
@@ -16,6 +16,31 @@ class MovieForm(forms.Form):
             }
         ),
     )
+
+
+    genre = forms.CharField(
+        label="Genero",
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "movie-title",
+                "placeholder": "Genero de la pelicula",
+                "required": "True",
+            }
+        ),
+    )
+    duration = forms.IntegerField(
+        label="Duracion",
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "movie-title",
+                "placeholder": "Duracion de la pelicula",
+                "required": "True",
+            }
+        ),
+    )
+
     description = forms.CharField(
         label="Descripcion:",
         required=False,
@@ -30,29 +55,5 @@ class MovieForm(forms.Form):
 
     class Meta:
         model = Movie
-        fields = ["title", "description", "genre", "duration",]
-
-
-    genre = forms.CharField(
-        label="Genero de la pelicula",
-        required=False,
-        widget=forms.TextInput(
-            attrs={
-                "class": "movie-title",
-                "placeholder": "Genero de la pelicula",
-                "required": "True",
-            }
-        ),
-    )
-    duration = forms.IntegerField(
-        label="Duracion de la pelicula",
-        required=False,
-        widget=forms.TextInput(
-            attrs={
-                "class": "movie-title",
-                "placeholder": "Duracion de la pelicula",
-                "required": "True",
-            }
-        ),
-    )
+        fields = ["title", "genre", "duration", "description"]
   
