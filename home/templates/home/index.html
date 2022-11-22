@@ -40,7 +40,13 @@
                         
                         <div class="topbar-divider d-none d-sm-block"></div>
                         
-                        
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:user-update' %}">Editar usuario</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión - {{ user.username }}</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                        {% endif %}
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -52,8 +58,13 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
+                            {% if user.is_authenticated %}
+                                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                                <h2>Bienvenido</h2>
+                            {% else %}
                             <h1>Moviecon</h1>
                             <span class="subheading">Let's have fun</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -93,7 +104,7 @@
                     </h5>
                     <form action="{% url 'home:search' %}" method="GET">
                         <div>
-                            <input type="text" name="search_param" id="course_code_or_name" placeholder="Buscar.."
+                            <input type="text" title="search_param" id="movie_title" placeholder="Buscar.."
                             {% if search_param %} value="{{ search_param }}" {% endif %}
                             >
                             <input type="submit" value="Buscar">
@@ -139,7 +150,33 @@
                     </div>
                     <!-- Pager-->
                     {% endblock %}
-
+                {% block pagination %}
+                    <!--Pagination Class Based Views-->
+                    {% if is_paginated %}
+                    <div class="container p-4">
+                        <div class="pagination justify-content-center">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page=1">&laquo; first</a> |
+                                    <a href="?page={{ course_list.previous_page_number }}">previous</a> |
+                                {% endif %}
+                    
+                                {% if page_obj.paginator.num_pages > 1 %}
+                                <span class="current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} |
+                                </span>
+                                {% endif %}
+                    
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}">next</a> |
+                                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <!--end of Pagination-->
+                {% endblock %}
                 </div>
             </div>
         </div>
@@ -183,5 +220,5 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{% static 'home/js/scripts.js' %}"></script>
-    </body>
+    </body>
 </html>

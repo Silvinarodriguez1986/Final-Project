@@ -20,6 +20,7 @@ from movie.views import create_movie
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('movie/', include("movie.urls")),
     path("", include("home.urls")),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('movie/', include("movie.urls")),
 ]
