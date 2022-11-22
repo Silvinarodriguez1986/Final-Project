@@ -28,21 +28,48 @@ Movie detail
     <h3 class="post-subtitle">Genero: {{ movie.genre }}</h3>
            
     <p class="post-meta">
-        Creado por
-        <a href="#!">Start Bootstrap</a> 
-        en {{ movie.created_at }}
+        Creado por 
+        <span style="color: #0b4956;" href="">{{ movie.owner.username }}</span>
+        ( {{ movie.created_at }} )
         <br>
         Última fecha de actualización {{ movie.updated_at }}
     </p>
     <p class="card-text ">{{ movie.description|safe }}</p> <!-- ckeditor-->
-    <p style="text-align: center">
-        <a href="{% url 'movie:movie-update' movie.id %}">
-            <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar
-        </a>
-        &ensp; | &ensp;
-        <a href="{% url 'movie:movie-delete' movie.id %}">
-            <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar 
-        </a>
-    </p>
+   
+     <!-- Update-Delete link only for the owner -->
+     {% if user == movie.owner or user.is_superuser %}
+     <p style="text-align: center">
+         <a href="{% url 'movie:movie-update' movie.id %}">
+             <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar Pelicula
+         </a>
+         &ensp; | &ensp;
+         <a href="{% url 'movie:movie-delete' movie.id %}">
+             <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar Pelicula
+         </a>
+     </p>
+ {% endif %}
+ 
+ <!-- Divider-->
+ <hr class="my-4" />
+
+ <!-- Comment creation -->
+ <form method="post" action="{% url 'movie:comment-create' movie.id %}">
+     {% csrf_token %}
+     {{ comment_form }}
+ <input type="submit" value="Publicar comentario">
+ </form>
+ {% if not comments %}
+     <p></p>
+ {% endif %}
+
+ <!-- Comments list -->
+ {% for comment in comments %}
+     <p> {{ comment.text }}
+         ({{ comment.owner.username }} | {{ comment.updated_at }})
+         {% if user == comment.owner or user.is_superuser %}
+         <a href="{% url 'movie:comment-delete' comment.id %}"><i class="fa fa-trash" style="color: #881a1a;"></i></a>
+         {% endif %}
+     </p>
+ {% endfor %}
 </div>
 {% endblock %}
