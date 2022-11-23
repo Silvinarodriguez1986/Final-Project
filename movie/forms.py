@@ -53,10 +53,12 @@ class MovieForm(forms.ModelForm):
             }
         ),
     )
+ 
+    image = forms.ImageField()
 
     class Meta:
         model = Movie
-        fields = ["title", "genre", "duration", "description"]
+        fields = ["title", "genre", "duration", "description", "image"]
 
 
 class CommentForm(forms.Form):
