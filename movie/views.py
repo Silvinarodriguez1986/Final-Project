@@ -16,7 +16,7 @@ from movie.models import Movie
 
 class MovieListView(ListView):
     model = Movie
-    paginate_by = 2
+    paginate_by = 3
 
 
 class MovieDetailView(DetailView):
@@ -72,9 +72,7 @@ class MovieUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         movie_id = self.kwargs["pk"]
         return reverse_lazy("movie:movie-detail", kwargs={"pk": movie_id})
-    
-    def post(self):
-        pass
+
 
 class MovieDeleteView(LoginRequiredMixin, DeleteView):
     model = Movie
@@ -97,14 +95,3 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         movie = self.object.movie
         return reverse("movie:movie-detail", kwargs={"pk": movie.id})
-
-
-
-
-
-
-
-
-
-
-
