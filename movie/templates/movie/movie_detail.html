@@ -35,6 +35,9 @@ Movie detail
         Última fecha de actualización {{ movie.updated_at }}
     </p>
 
+
+    
+
      <!-- Image -->
      {% if movie.image %}
         <div style="text-align: center;">
@@ -43,6 +46,7 @@ Movie detail
     {% endif %}
 
     <!-- Description -->
+
     <p class="card-text ">{{ movie.description|safe }}</p> <!-- ckeditor-->
     
     <!-- Update-Delete link only for the owner -->
