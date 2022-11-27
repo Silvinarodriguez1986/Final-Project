@@ -41,7 +41,7 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("movie:movie-list")
 
     form_class = MovieForm
-    # fields = ["title", "genre", "duration", "description"]
+    # fields = ["title", "genre", "duration", "description", "image"]
 
     def form_valid(self, form):
         """Filter to avoid duplicate movies"""
