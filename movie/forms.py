@@ -60,7 +60,7 @@ class MovieForm(forms.ModelForm):
 
 
 class CommentForm(forms.Form):
-       comment_text = forms.CharField(
+        comment_text = forms.CharField(
         label="",
         required=False,
         max_length=500,
