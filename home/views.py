@@ -1,4 +1,3 @@
-from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 import os
@@ -23,7 +22,7 @@ def get_avatar_url_ctx(request):
 def index(request):
     return render(
         request=request,
-        context={},
+        context= get_avatar_url_ctx(request),
         template_name="home/index.html",
     )
 

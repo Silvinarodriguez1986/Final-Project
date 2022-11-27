@@ -35,41 +35,41 @@ Movie detail
         Última fecha de actualización {{ movie.updated_at }}
     </p>
     <p class="card-text ">{{ movie.description|safe }}</p> <!-- ckeditor-->
-   
-     <!-- Update-Delete link only for the owner -->
-     {% if user == movie.owner or user.is_superuser %}
-     <p style="text-align: center">
+    
+    <!-- Update-Delete link only for the owner -->
+    {% if user == movie.owner or user.is_superuser %}
+    <p style="text-align: center">
         <a href="{% url 'movie:movie-update' movie.id %}">
             <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar Pelicula
-         </a>
-         &ensp; | &ensp;
-         <a href="{% url 'movie:movie-delete' movie.id %}">
-             <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar Pelicula
-         </a>
-     </p>
- {% endif %}
- 
- <!-- Divider-->
- <hr class="my-4" />
+        </a>
+        &ensp; | &ensp;
+        <a href="{% url 'movie:movie-delete' movie.id %}">
+            <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar Pelicula
+        </a>
+    </p>
+{% endif %}
 
- <!-- Comment creation -->
- <form method="post" action="{% url 'movie:comment-create' movie.id %}">
-     {% csrf_token %}
-     {{ comment_form }}
- <input type="submit" value="Publicar comentario">
- </form>
- {% if not comments %}
-     <p></p>
- {% endif %}
+<!-- Divider-->
+<hr class="my-4" />
 
- <!-- Comments list -->
- {% for comment in comments %}
-     <p> {{ comment.text }}
-         ({{ comment.owner.username }} | {{ comment.updated_at }})
-         {% if user == comment.owner or user.is_superuser %}
-         <a href="{% url 'movie:comment-delete' comment.id %}"><i class="fa fa-trash" style="color: #881a1a;"></i></a>
-         {% endif %}
-     </p>
- {% endfor %}
+<!-- Comment creation -->
+<form method="post" action="{% url 'movie:comment-create' movie.id %}">
+    {% csrf_token %}
+    {{ comment_form }}
+<input type="submit" value="Publicar comentario">
+</form>
+{% if not comments %}
+    <p></p>
+{% endif %}
+
+<!-- Comments list -->
+{% for comment in comments %}
+    <p> {{ comment.text }}
+        ({{ comment.owner.username }} | {{ comment.updated_at }})
+        {% if user == comment.owner or user.is_superuser %}
+        <a href="{% url 'movie:comment-delete' comment.id %}"><i class="fa fa-trash" style="color: #881a1a;"></i></a>
+        {% endif %}
+    </p>
+{% endfor %}
 </div>
 {% endblock %}
