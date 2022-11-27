@@ -34,6 +34,19 @@ Movie detail
         <br>
         Última fecha de actualización {{ movie.updated_at }}
     </p>
+
+
+    
+
+     <!-- Image -->
+     {% if movie.image %}
+        <div style="text-align: center;">
+            <img height="250px" src="{{ movie.image.url }}">
+        </div>
+    {% endif %}
+
+    <!-- Description -->
+
     <p class="card-text ">{{ movie.description|safe }}</p> <!-- ckeditor-->
     
     <!-- Update-Delete link only for the owner -->

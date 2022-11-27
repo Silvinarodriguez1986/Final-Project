@@ -16,7 +16,7 @@ from movie.models import Movie
 
 class MovieListView(ListView):
     model = Movie
-    paginate_by = 2
+    paginate_by = 3
 
 
 class MovieDetailView(DetailView):
@@ -41,7 +41,7 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("movie:movie-list")
 
     form_class = MovieForm
-    # fields = ["title", "genre", "duration", "description"]
+    # fields = ["title", "genre", "duration", "description", "image"]
 
     def form_valid(self, form):
         """Filter to avoid duplicate movies"""
@@ -73,8 +73,8 @@ class MovieUpdateView(LoginRequiredMixin, UpdateView):
         movie_id = self.kwargs["pk"]
         return reverse_lazy("movie:movie-detail", kwargs={"pk": movie_id})
     
-    ###def post(self):
-    ###    pass
+    def post(self):
+        pass
 
 class MovieDeleteView(LoginRequiredMixin, DeleteView):
     model = Movie
@@ -97,14 +97,3 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         movie = self.object.movie
         return reverse("movie:movie-detail", kwargs={"pk": movie.id})
-
-
-
-
-
-
-
-
-
-
-
