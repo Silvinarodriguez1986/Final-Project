@@ -8,6 +8,7 @@ from django.forms.models import model_to_dict
 from django.shortcuts import redirect
 
 from movie.models import Movie
+###from serie.models import Serie
 from home.forms import UserRegisterForm
 from home.forms import UserUpdateForm
 from home.models import Avatar
@@ -30,10 +31,12 @@ def search(request):
     search_param = request.GET["search_param"]
     print("search: ", search_param)
     context_dict = dict()
+    
     if search_param:
         query = Q(title__contains=search_param)
         query.add(Q(genre__contains=search_param), Q.OR)
         movies = Movie.objects.filter(query)
+        ### series = Serie.objects.filter(query)
         context_dict.update(
             {
                 "movie": movies,
@@ -45,6 +48,7 @@ def search(request):
         context=context_dict,
         template_name="home/index.html",
     )
+
 def register(request):
     form = UserRegisterForm(request.POST) if request.POST else UserRegisterForm()
     if request.method == "POST":
