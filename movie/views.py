@@ -73,8 +73,8 @@ class MovieUpdateView(LoginRequiredMixin, UpdateView):
         movie_id = self.kwargs["pk"]
         return reverse_lazy("movie:movie-detail", kwargs={"pk": movie_id})
     
-    def post(self):
-        pass
+    ###def post(self):
+    ###    pass
 
 class MovieDeleteView(LoginRequiredMixin, DeleteView):
     model = Movie
