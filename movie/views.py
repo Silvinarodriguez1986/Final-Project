@@ -67,12 +67,14 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
 
 class MovieUpdateView(LoginRequiredMixin, UpdateView):
     model = Movie
-    fields = ["title", "genre", "duration", "description"]
+    fields = ["title", "genre", "duration", "description", "image"]
 
     def get_success_url(self):
         movie_id = self.kwargs["pk"]
         return reverse_lazy("movie:movie-detail", kwargs={"pk": movie_id})
-
+    
+    def post(self):
+        pass
 
 class MovieDeleteView(LoginRequiredMixin, DeleteView):
     model = Movie
