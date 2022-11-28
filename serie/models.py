@@ -6,6 +6,8 @@ from ckeditor.fields import RichTextField
 class Serie(models.Model):
     title = models.CharField(max_length=40, null=False, blank=False)
     genre =  models.CharField(max_length=40, null=False, blank=False)
+    chapters_number = models.IntegerField(null=False, blank=False)
+    seasons_number = models.IntegerField(null=False, blank=False)
     duration =  models.IntegerField(null=False, blank=False)
     description =  RichTextField(null=True, blank=True)
     image = models.ImageField(upload_to='serie', null=True, blank=True)
@@ -20,6 +22,8 @@ class Serie(models.Model):
         unique_together = (
             "title",
             "genre",
+            "chapters_number",
+            "seasons_number",
             "duration",
             "description",
         )

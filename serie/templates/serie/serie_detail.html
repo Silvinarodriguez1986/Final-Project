@@ -25,24 +25,33 @@ Serie detail
 {% block film_blog_content %}
 <!-- Post preview-->
 <div class="post-preview">
-    <h3 class="post-subtitle">Genero: {{ serie.genre }}</h3>
-    
+    <h2 class="post-subtitle" style="text-align:center"> Titulo oficial: {{serie.title}}</h2>
+    <hr>
     <p class="post-meta">
-        Creado por 
+        Genero: {{ serie.genre }} <br>
+        Temporadas: {{ serie.seasons_number}} <br>
+        Numero de capitulos: {{ serie.chapters_number}} <br>
+        Duración de capitulos: {{ serie.duration}} <br>
+    </p>
+    <hr>
+        <!-- Image -->
+     {% if serie.image %}
+        <div style="text-align: center;">
+            <img height="250px" src="{{ serie.image.url }}">
+        </div>
+    {% endif %}
+    <hr>
+
+    <p class="post-meta">
+        Apartado creado por 
         <span style="color: #0b4956;" href="">{{ serie.owner.username }}</span>
         ( {{ serie.created_at }} )
         <br>
         Última fecha de actualización {{ serie.updated_at }}
     </p>
 
-     <!-- Image -->
-     {% if serie.image %}
-        <div style="text-align: center;">
-            <img height="250px" src="{{ serie.image.url }}">
-        </div>
-    {% endif %}
-
     <!-- Description -->
+    <h3>Descripcion/review: </h3>
     <p class="card-text ">{{ serie.description|safe }}</p> <!-- ckeditor-->
     
     <!-- Update-Delete link only for the owner -->

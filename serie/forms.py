@@ -28,17 +28,43 @@ class SerieForm(forms.ModelForm):
             }
         ),
     )
-    duration = forms.IntegerField(
-        label="Duracion",
+
+    seasons_number = forms.IntegerField(
+        label="Temporadas",
         required=False,
-        widget=forms.TextInput(
+        widget=forms.NumberInput(
             attrs={
                 "class": "serie-title",
-                "placeholder": "Duracion de la serie",
+                "placeholder": "Numero",
                 "required": "True",
             }
         ),
     )
+
+    chapters_number = forms.IntegerField(
+        label="Capitulos",
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "serie-title",
+                "placeholder": "Numero",
+                "required": "True",
+            }
+        ),
+    )
+
+    duration = forms.IntegerField(
+        label="Duracion",
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "serie-title",
+                "placeholder": "Minutos por capitulo",
+                "required": "True",
+            }
+        ),
+    )
+
 
     description = forms.CharField(
         label="Descripcion:",
@@ -56,7 +82,7 @@ class SerieForm(forms.ModelForm):
 
     class Meta:
         model = Serie
-        fields = ["title", "genre", "duration", "description", "image"]
+        fields = ["title", "genre","seasons_number", "chapters_number", "duration", "description", "image"]
 
 
 class CommentForm(forms.Form):

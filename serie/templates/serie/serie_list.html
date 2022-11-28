@@ -29,8 +29,8 @@ Serie list
             <a href="{% url 'serie:serie-detail' serie.id %}">
                 <h2 class="post-title">Titulo: {{ serie.title }}</h2>
                 <h3 class="post-subtitle">Genero: {{ serie.genre}}</h3>
-                <h3 class="post-subtitle">Duracion: {{ serie.duration}}</h3>
-                <p class="post-meta">Descripcion: {{ serie.description|safe }}</p>
+                <h3 class="post-subtitle">Temporadas: {{ serie.seasons_number}}</h3>
+                <h3 class="post-subtitle">Capitulos: {{ serie.chapters_number}} x {{ serie.duration}} minutos</h3>
             </a>
             <p class="post-meta">
                 Creado por

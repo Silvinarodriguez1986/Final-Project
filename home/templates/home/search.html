@@ -1,0 +1,64 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block film_blog_content %}
+        <!-- Buscador -->
+        <div class="post-preview" style="text-align:center">
+            <h1 >Busca una pelicula o una serie:</h1>
+            <p class="post-meta" >
+                Ya sea por un nombre o por un genero.
+            </p>
+        </div>
+        
+    
+        <form action="{% url 'home:search' %}" method="GET">
+            <div style="text-align:center">
+                <input type="text" name="search_param" id="movie_title" placeholder="Buscar..."
+                {% if search_param %} value="{{ search_param }}" {% endif %}
+                >
+                <input type="submit" value="Buscar">
+                <a style="color: blue" href="{% url 'home:search_media' %}"><i class="fa fa-undo"></i></a>
+            </div>
+        </form>
+        <!-- Divider-->
+        <hr class="my-4" />
+
+        <!-- Si hay resultados en el buscador los presenta -->
+        {% if movies %}
+            {% for movie in movies %}
+                <div class="post-preview" >
+                    <a href="{% url 'movie:movie-detail' movie.id %}">
+                        <h2 class="post-title">Pelicula: {{ movie.title }}</h2>
+                        <h3 class="post-subtitle">Genero: {{ movie.genre }}</h3>
+                    </a>
+                    <p class="post-meta">
+                        Creado por
+                        <a href="">{{ movie.owner.username }}</a> 
+                        en {{ movie.created_at }}
+                    </p>
+                </div>
+                <hr class="my-4" />
+            {% endfor %}
+        {% endif %}
+        {% if series %}
+            {% for serie in series %}
+                <div class="post-preview" >
+                    <a href="{% url 'serie:serie-detail' serie.id %}">
+                        <h2 class="post-title">Serie: {{ serie.title }}</h2>
+                        <h3 class="post-subtitle">Genero: {{ serie.genre }}</h3>
+                    </a>
+                    <p class="post-meta">
+                        Creado por
+                        <a href="">{{ serie.owner.username }}</a> 
+                        en {{ serie.created_at }}
+                    </p>
+                </div>
+                <hr class="my-4" />
+            {% endfor %}
+        {% else %}
+            <p class="post-meta" style="text-align:center">
+                Por el momento no se encontro ninguna referencia.
+            </p>
+        {% endif %}
+
+{% endblock %}
