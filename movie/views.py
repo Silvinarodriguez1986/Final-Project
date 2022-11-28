@@ -17,6 +17,7 @@ from movie.models import Movie
 class MovieListView(ListView):
     model = Movie
     paginate_by = 3
+    #template_name = "movie/movie_list.html" --> No es necesario ya que Django busca automatico el html con el nombre_list.
 
 
 class MovieDetailView(DetailView):

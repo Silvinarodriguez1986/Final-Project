@@ -1,16 +1,16 @@
 from ckeditor.widgets import CKEditorWidget
 from django import forms
-from movie.models import Movie
+from serie.models import Serie
 
-class MovieForm(forms.ModelForm):
+class SerieForm(forms.ModelForm):
     title = forms.CharField(
-        label="Nombre de la pelicula",
+        label="Nombre de la serie",
         max_length=40,
         required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "movie-title",
-                "placeholder": "Nombre de la pelicula",
+                "class": "serie-title",
+                "placeholder": "Nombre de la serie",
                 "required": "True",
             }
         ),
@@ -22,8 +22,8 @@ class MovieForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "movie-title",
-                "placeholder": "Genero de la pelicula",
+                "class": "serie-title",
+                "placeholder": "Genero de la serie",
                 "required": "True",
             }
         ),
@@ -33,8 +33,8 @@ class MovieForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "movie-title",
-                "placeholder": "Duracion de la pelicula",
+                "class": "serie-title",
+                "placeholder": "Duracion de la serie",
                 "required": "True",
             }
         ),
@@ -45,8 +45,8 @@ class MovieForm(forms.ModelForm):
         required=False,
         widget=CKEditorWidget(
             attrs={
-                "class": "movie-description",
-                "placeholder": "Descripcion de la pelicula",
+                "class": "serie-description",
+                "placeholder": "Descripcion de la serie",
                 "required": "True",
             }
         ),
@@ -55,7 +55,7 @@ class MovieForm(forms.ModelForm):
     image = forms.ImageField()
 
     class Meta:
-        model = Movie
+        model = Serie
         fields = ["title", "genre", "duration", "description", "image"]
 
 

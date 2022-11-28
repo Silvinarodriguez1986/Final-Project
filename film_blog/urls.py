@@ -23,6 +23,7 @@ urlpatterns = [
     path("", include("home.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
     path('movie/', include("movie.urls")),
+    path('serie/', include("serie.urls")),
 ]
 
 if settings.DEBUG:

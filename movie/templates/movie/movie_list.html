@@ -31,7 +31,7 @@ Movie list
             <h2 class="post-title">Titulo: {{ movie.title }}</h2>
             <h3 class="post-subtitle">Genero: {{ movie.genre}}</h3>
             <h3 class="post-subtitle">Duracion: {{ movie.duration}}</h3>
-            <h3 class="post-subtitle">Descripcion: {{ movie.description }}</h3>
+            <p class="post-meta">Descripcion: {{ movie.description|safe }}</p>
         </a>
         <p class="post-meta">
             Creado por

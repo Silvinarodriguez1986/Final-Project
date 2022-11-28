@@ -17,26 +17,27 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Comment',
+            name='Comment_serie',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('text', models.TextField(validators=[django.core.validators.MinLengthValidator(10, 'El comentario debe ser mayor de 10 caracteres')])),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
+                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
-            name='Movie',
+            name='Serie',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=40)),
                 ('genre', models.CharField(max_length=40)),
                 ('duration', models.IntegerField()),
                 ('description', ckeditor.fields.RichTextField(blank=True, null=True)),
-                ('image', models.ImageField(blank=True, null=True, upload_to='movie')),
+                ('image', models.ImageField(blank=True, null=True, upload_to='serie')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('comments', models.ManyToManyField(related_name='comments_owned', through='movie.Comment', to=settings.AUTH_USER_MODEL)),
+                ('comments', models.ManyToManyField(related_name='comments_owned_serie', through='serie.Comment_serie', to=settings.AUTH_USER_MODEL)),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -45,13 +46,8 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.AddField(
-            model_name='comment',
-            name='movie',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='movie.movie'),
-        ),
-        migrations.AddField(
-            model_name='comment',
-            name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name='comment_serie',
+            name='serie',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='serie.serie'),
         ),
     ]

@@ -1,0 +1,84 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block film_blog_title %}
+Serie detail
+{% endblock %}
+
+{% block film_blog_header %}
+<header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>{{ serie.title }}</h1>
+                    <span class="subheading">Detalles de la serie</span>
+                </div>
+            </div>
+        </div>
+        <a class="button_custom" href="{% url 'serie:serie-add' %}">Crear nueva serie</a>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block film_blog_content %}
+<!-- Post preview-->
+<div class="post-preview">
+    <h3 class="post-subtitle">Genero: {{ serie.genre }}</h3>
+    
+    <p class="post-meta">
+        Creado por 
+        <span style="color: #0b4956;" href="">{{ serie.owner.username }}</span>
+        ( {{ serie.created_at }} )
+        <br>
+        Última fecha de actualización {{ serie.updated_at }}
+    </p>
+
+     <!-- Image -->
+     {% if serie.image %}
+        <div style="text-align: center;">
+            <img height="250px" src="{{ serie.image.url }}">
+        </div>
+    {% endif %}
+
+    <!-- Description -->
+    <p class="card-text ">{{ serie.description|safe }}</p> <!-- ckeditor-->
+    
+    <!-- Update-Delete link only for the owner -->
+    {% if user == serie.owner or user.is_superuser %}
+    <p style="text-align: center">
+        <a href="{% url 'serie:serie-update' serie.id %}">
+            <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar serie
+        </a>
+        &ensp; | &ensp;
+        <a href="{% url 'serie:serie-delete' serie.id %}">
+            <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar serie
+        </a>
+    </p>
+{% endif %}
+
+<!-- Divider-->
+<hr class="my-4" />
+
+<!-- Comment creation -->
+<form method="post" action="{% url 'serie:comment-create' serie.id %}">
+    {% csrf_token %}
+    {{ comment_form }}
+<input type="submit" value="Publicar comentario">
+</form>
+{% if not comments %}
+    <p></p>
+{% endif %}
+
+<!-- Comments list -->
+{% for comment in comments %}
+    <p> {{ comment.text }}
+        ({{ comment.owner.username }} | {{ comment.updated_at }})
+        {% if user == comment.owner or user.is_superuser %}
+        <a href="{% url 'serie:comment-delete' comment.id %}"><i class="fa fa-trash" style="color: #881a1a;"></i></a>
+        {% endif %}
+    </p>
+{% endfor %}
+</div>
+{% endblock %}
