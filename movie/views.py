@@ -42,7 +42,7 @@ class MovieCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("movie:movie-list")
 
     form_class = MovieForm
-    # fields = ["title", "genre", "duration", "description"]
+    # fields = ["title", "genre", "duration", "description", "image"]
 
     def form_valid(self, form):
         """Filter to avoid duplicate movies"""
@@ -73,7 +73,9 @@ class MovieUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         movie_id = self.kwargs["pk"]
         return reverse_lazy("movie:movie-detail", kwargs={"pk": movie_id})
-
+    
+    def post(self):
+        pass
 
 class MovieDeleteView(LoginRequiredMixin, DeleteView):
     model = Movie

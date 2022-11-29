@@ -37,6 +37,7 @@ def search(request):
     search_param = request.GET["search_param"]
     print("search: ", search_param)
     context_dict = dict()
+    
     if search_param:
         query = Q(title__contains=search_param)
         query.add(Q(genre__contains=search_param), Q.OR)
@@ -54,6 +55,7 @@ def search(request):
         context=context_dict,
         template_name="home/search.html",
     )
+
 def register(request):
     form = UserRegisterForm(request.POST) if request.POST else UserRegisterForm()
     if request.method == "POST":

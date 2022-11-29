@@ -70,6 +70,10 @@
                             {% if avatar_url %}
                                 <a><img height="260px" src="{{avatar_url}}"></a>
                             {% endif %}
+                            <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
+                            {% if not avatar_url %}
+                                <a class="button_custom" href="{% url 'home:avatar-load' %}">Cargar Avatar</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -80,6 +84,7 @@
                     {% endif %}
                 {% endif %}
             </div>
+
         </header>
         {% endblock %}
 
