@@ -1,3 +1,8 @@
+Video explicativo del funcionamiento de la pagina web - Blog de multimedia.
+
+https://drive.google.com/file/d/1EvTLrbEFQWLHq-7dtyfteoXHVhzHzITb/view?usp=sharing
+
+
 # Instrucciones para ejecutar el proyecto final 
 # trabajo fianl de la cursada
 
@@ -35,6 +40,7 @@ cd film_blog
 
 - Se ejecuta la migración para crear la base de datos con la que trabajará nuestro proyecto de Django
 ```bash
+python manage.py makemigrations
 python manage.py migrate
 ```
 
