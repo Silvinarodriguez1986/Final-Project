@@ -10,7 +10,7 @@
         <meta name="author" content="" />
         <title>
             {% block film_blog_title %}
-                Home
+                Moviecon - Home
             {% endblock %}
         </title>
         <link rel="icon" type="image/x-icon" href="{% static 'home/assets/favicon.ico' %}" />
@@ -33,16 +33,17 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:search_media' %}">Buscador</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'movie:movie-list' %}">Movies</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Series</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'serie:serie-list' %}">Series</a></li>
                         
                         <div class="topbar-divider d-none d-sm-block"></div>
                         
                         {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:user-update' %}">Editar usuario</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión - {{ user.username }}</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:user-update' %}">Editar usuario</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión - {{ user.username }}</a></li>
                         {% else %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -57,14 +58,17 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
                             {% if user.is_authenticated %}
-                                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-                                <h2>Bienvenido</h2>
+                                <p style="text-align:left"><small>Registrado como:</small></p>
+                                <h2>{{ user.first_name }} {{ user.last_name }} | {{ user.username}}</h2>
+                                
                             {% else %}
                                 <h1>Moviecon</h1>
+                                <h2>Bienvenido - registrate e inicia sesion</h2>
                                 <span class="subheading">Let's have fun</span>
+
                             {% endif %}
                             {% if avatar_url %}
-                                <a href="{% url 'home:avatar-load' %}"><img height="260px" src="{{avatar_url}}"></a>
+                                <a><img height="260px" src="{{avatar_url}}"></a>
                             {% endif %}
                             <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
                             {% if not avatar_url %}
@@ -73,6 +77,12 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
+                {% if user.is_authenticated %}
+                    {% if not avatar_url %}
+                    <a class="button_custom" href="{% url 'home:avatar-load' %}">Cargar Avatar</a>
+                    {% endif %}
+                {% endif %}
             </div>
 
         </header>
@@ -102,87 +112,57 @@
                     
                     {% block film_blog_content %}
 
-                    <!-- Buscador -->
-                    <h3>Antes de ver algo</h3>
-                    <h3>Mejor fijate que dice movicon</h3>
-                    <h5>Encontra las reseñas de la pelicula o seria que quieras ver!!
-                        Moviecon es la garantia de que vas a ver una buena produccion y no una copia barata
-                    </h5>
-                    <form action="{% url 'home:search' %}" method="GET">
-                        <div>
-                            <input type="text" title="search_param" id="movie_title_or_genre" placeholder="Buscar.."
-                            {% if search_param %} value="{{ search_param }}" {% endif %}
-                            >
-                            <input type="submit" value="Buscar">
-                            <a style="color: blue" href="{% url 'home:index' %}"><i class="fa fa-undo"></i></a>
-                        </div>
-                    </form>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-
-                    <!-- Si hay resultados en el buscador los presenta -->
-                    {% if movies %}
-                    {% for movie in movies %}
-                        <!-- Post preview-->
-                        <div class="post-preview">
-                            <h2 class="post-title">Tu pelicules es {{ movie.title }}</h2>
-                            <h3 class="post-subtitle">Genero {{ movie.genre }}</h3>
-                            <p class="post-meta">
-                                Creado por
-                                <a href="#!">Start Bootstrap</a> 
-                                en {{ movie.created_at }}
-                            </p>
-                        </div>
-                        <!-- Divider-->
-                        <hr class="my-4" />
-                    {% endfor %}
-                    {% endif %}
-
                     <!-- Post preview-->
                     <div class="#!">
                         <a href="#!">
-                            <h2 class="post-title">Somos los mejores en python</h2>
-                            <h6 class="post-subtitle">Bueno quizas no los mejores pero nos esforzamos mucho</h6>
+
                         </a>
-                        <p>
-                            Silvina Rodriguez
-                        </p>
-                        <p>
-                            Juan Pablo Gómez Cristancho
-                        </p>
-                        <p>
-                            Jose Fernandez
-                        </p>
+                        <div style="text-align:center">
+                            <h1>Acerca de la pagina web</h1><hr>
+                            <p>Esta una pagina web en la cual puedes encontrar apartados de las mejores peliculas y series conocidas. Estos apartados estan diseñados para darte una breve synopsis de cada una de peliculas o series para que así puedas compartir y comentar tu opinión/review.</p>
+                            <p>Para esto deberas registrarte, loguearte, ir la buscador y buscar la pelicula o serie, y en la parte inferior de los detalles de las peliculas, podreas realizar tu comentario/review.</p><hr>
+
+
+                            <h1>Acerca de los autores</h1><hr>
+                                <h6 class="post-title"> Somos los mejores en python</h6>
+                                <h6 class="post-subtitle"> Bueno quizas no los mejores pero nos esforzamos mucho</h6>
+                            <hr><h3>Silvina Rodriguez</h3>
+                            <p>Soy Silvina Rodriguez, me gusta tomar cursos de programación.</p>
+                            <hr><h3>Juan Pablo Gómez Cristancho</h3>
+                            <p>Soy Juan Pablo Gómez Cristancho, me gusta tomar cursos de programación.</p>
+                            <hr><h3>Jose Fernandez</h3>
+                            <p>Soy Jose Fernandez, me gusta tomar cursos de programación.</p>
+                        </div>
                     </div>
                     <!-- Pager-->
                     {% endblock %}
-                {% block pagination %}
-                    <!--Pagination Class Based Views-->
-                    {% if is_paginated %}
-                    <div class="container p-4">
-                        <div class="pagination justify-content-center">
-                            <span class="step-links">
-                                {% if page_obj.has_previous %}
-                                    <a href="?page=1">&laquo; first</a> |
-                                    <a href="?page={{ course_list.previous_page_number }}">previous</a> |
-                                {% endif %}
-                    
-                                {% if page_obj.paginator.num_pages > 1 %}
-                                <span class="current">
-                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} |
+                    {% block pagination %}
+                        <!--Pagination Class Based Views-->
+                        {% if is_paginated %}
+                        <div class="container p-4">
+                            <div class="pagination justify-content-center">
+                                <span class="step-links">
+                                    {% if page_obj.has_previous %}
+                                        <a href="?page=1">&laquo; first</a> |
+                                        <a href="?page={{ course_list.previous_page_number }}">previous</a> |
+                                    {% endif %}
+                        
+                                    {% if page_obj.paginator.num_pages > 1 %}
+                                    <span class="current">
+                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} |
+                                    </span>
+                                    {% endif %}
+                        
+                                    {% if page_obj.has_next %}
+                                        <a href="?page={{ page_obj.next_page_number }}">next</a> |
+                                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                    {% endif %}
                                 </span>
-                                {% endif %}
-                    
-                                {% if page_obj.has_next %}
-                                    <a href="?page={{ page_obj.next_page_number }}">next</a> |
-                                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                                {% endif %}
-                            </span>
+                            </div>
                         </div>
-                    </div>
-                    {% endif %}
-                    <!--end of Pagination-->
-                {% endblock %}
+                        {% endif %}
+                        <!--end of Pagination-->
+                    {% endblock %}
                 </div>
             </div>
         </div>

@@ -1,16 +1,16 @@
 from ckeditor.widgets import CKEditorWidget
 from django import forms
-from movie.models import Movie
+from serie.models import Serie
 
-class MovieForm(forms.ModelForm):
+class SerieForm(forms.ModelForm):
     title = forms.CharField(
-        label="Nombre de la pelicula",
+        label="Nombre de la serie",
         max_length=40,
         required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "movie-title",
-                "placeholder": "Nombre de la pelicula",
+                "class": "serie-title",
+                "placeholder": "Nombre de la serie",
                 "required": "True",
             }
         ),
@@ -22,31 +22,57 @@ class MovieForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(
             attrs={
-                "class": "movie-title",
-                "placeholder": "Genero de la pelicula",
+                "class": "serie-title",
+                "placeholder": "Genero de la serie",
                 "required": "True",
             }
         ),
     )
+
+    seasons_number = forms.IntegerField(
+        label="Temporadas",
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "serie-title",
+                "placeholder": "Numero",
+                "required": "True",
+            }
+        ),
+    )
+
+    chapters_number = forms.IntegerField(
+        label="Capitulos",
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                "class": "serie-title",
+                "placeholder": "Numero",
+                "required": "True",
+            }
+        ),
+    )
+
     duration = forms.IntegerField(
         label="Duracion",
         required=False,
-        widget=forms.TextInput(
+        widget=forms.NumberInput(
             attrs={
-                "class": "movie-title",
-                "placeholder": "Duracion de la pelicula",
+                "class": "serie-title",
+                "placeholder": "Minutos por capitulo",
                 "required": "True",
             }
         ),
     )
+
 
     description = forms.CharField(
         label="Descripcion:",
         required=False,
         widget=CKEditorWidget(
             attrs={
-                "class": "movie-description",
-                "placeholder": "Descripcion de la pelicula",
+                "class": "serie-description",
+                "placeholder": "Descripcion de la serie",
                 "required": "True",
             }
         ),
@@ -55,8 +81,8 @@ class MovieForm(forms.ModelForm):
     image = forms.ImageField()
 
     class Meta:
-        model = Movie
-        fields = ["title", "genre", "duration", "description", "image"]
+        model = Serie
+        fields = ["title", "genre","seasons_number", "chapters_number", "duration", "description", "image"]
 
 
 class CommentForm(forms.Form):

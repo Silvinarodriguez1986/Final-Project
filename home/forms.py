@@ -6,12 +6,12 @@ from home.models import Avatar
 
 class UserRegisterForm(UserCreationForm):
 
-    username = forms.CharField(label="username", min_length=3)
+    username = forms.CharField(label="Usuario", min_length=3)
     first_name = forms.CharField(label="Nombre", min_length=3)
     last_name = forms.CharField(label="Apellido", min_length=3)
     email = forms.EmailField(label="Correo electrónico")
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
-    password2 = forms.CharField(label="Confirmar Password", widget=forms.PasswordInput)
+    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Confirmar contraseña", widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -40,6 +40,7 @@ class UserUpdateForm(UserChangeForm):
         }
 
 class AvatarForm(forms.ModelForm):
+    image = forms.ImageField()
     class Meta:
         model = Avatar
         fields = ("image", )

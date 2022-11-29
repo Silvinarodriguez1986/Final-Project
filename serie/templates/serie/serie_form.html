@@ -9,20 +9,20 @@
 <!-- ckeditor-->
 
 {% block film_blog_title %}
-    Movie Create-Update
+    Serie Create-Update
 {% endblock %}
 
 {% block film_blog_header %}
-    {% if not movie.image %}
+    {% if not serie.image %}
     <header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
     {% else %}
-    <header class="masthead" style="background-image:url('{{ movie.image.url }}')">
+    <header class="masthead" style="background-image:url('{{ serie.image.url }}')">
     {% endif %}
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-15 col-lg-16 col-xl-14">
                     <div class="site-heading">
-                        <h1>Formulario para guardar/editar peliculas</h1>
+                        <h1>Formulario para guardar/editar series</h1>
                     </div>
                 </div>
             </div>
@@ -37,11 +37,10 @@
                 {% csrf_token %}
                 {{ form.media }} <!-- ckeditor-->
                 {{ form.as_p }}
-                <input type="submit" class="btn btn-primary" value="Guardar pelicula" />
+                <input type="submit" class="btn btn-primary" value="Guardar serie" />
             </form>
         </div>
+        <!-- Divider-->
+        <hr class="my-4" />
     {% endif %}
-    
-    <!-- Divider-->
-    <hr class="my-4" />
 {% endblock %}

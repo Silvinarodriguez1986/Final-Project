@@ -8,7 +8,7 @@ from django.forms.models import model_to_dict
 from django.shortcuts import redirect
 
 from movie.models import Movie
-###from serie.models import Serie
+from serie.models import Serie
 from home.forms import UserRegisterForm
 from home.forms import UserUpdateForm
 from home.models import Avatar
@@ -27,6 +27,12 @@ def index(request):
         template_name="home/index.html",
     )
 
+def search_media(request):
+    return render(
+        request=request,
+        template_name = "home/search.html"
+    )
+
 def search(request):
     search_param = request.GET["search_param"]
     print("search: ", search_param)
@@ -36,17 +42,18 @@ def search(request):
         query = Q(title__contains=search_param)
         query.add(Q(genre__contains=search_param), Q.OR)
         movies = Movie.objects.filter(query)
-        ### series = Serie.objects.filter(query)
+        series = Serie.objects.filter(query)
         context_dict.update(
             {
-                "movie": movies,
+                "movies": movies,
+                "series": series,
                 "search_param": search_param,
             }
         )
     return render(
         request=request,
         context=context_dict,
-        template_name="home/index.html",
+        template_name="home/search.html",
     )
 
 def register(request):
@@ -74,9 +81,16 @@ def user_update(request):
             return redirect("home:index")
 
     form = UserUpdateForm(model_to_dict(user))
+    avatars = Avatar.objects.filter(user=request.user.id)
+
+    if avatars.exists():
+        dictionary = {"form": form, "avatar_url": avatars[0].image.url}
+    else:
+        dictionary = {"form": form}
+
     return render(
         request=request,
-        context={"form": form},
+        context=dictionary,
         template_name="registration/user_form.html",
     )
 

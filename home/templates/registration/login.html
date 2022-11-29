@@ -6,17 +6,17 @@ Login
 {% endblock %}
 
 {% block film_blog_header %}
-<header class="masthead" style="background-image: url('/static/home/assets/img/home-bg.jpg')">
+<header class="masthead" style="background-image: url('/static/home/assets/img/Buscador.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
                 <div class="site-heading">
-                    <h1>Login</h1>
-                    <span class="subheading">My blog CoderHouse</span>
+                    <h1>Iniciar Sesión</h1>
+                    <a class="button_custom" href="{% url 'home:user-register' %}">Registrar nuevo usuario</a>
                 </div>
             </div>
         </div>
-        <a class="button_custom" href="{% url 'home:user-register' %}">Registrar nuevo usuario</a>
+        
     </div>
 </header>
 {% endblock %}
@@ -26,11 +26,12 @@ Login
 {% if form.errors %}
 <p style="color: red">Combinación de username y password incorrecta, intenta de nuevo.</p>
 {% endif %}
-
-<form action="" method="POST">
+<hr>
+<form action="" method="POST" style="text-align:center">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" class="btn btn-primary" value="Iniciar Sesión" />
 </form>
+<hr>
 
 {% endblock %}

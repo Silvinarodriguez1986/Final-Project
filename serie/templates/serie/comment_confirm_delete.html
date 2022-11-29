@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block film_blog_title %}
-Movie delete
+Comentario delete
 {% endblock %}
 
 {% block film_blog_header %}
@@ -11,8 +11,8 @@ Movie delete
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
                 <div class="site-heading">
-                    <h1>{{ movie.name }}</h1>
-                    <h1>Eliminar pelicula</h1>
+                    <h1>Eliminar Comentario</h1>
+                    <span class="subheading">Creado por: {{ comment.owner.first_name }} {{ comment.owner.last_name }}</span>
                 </div>
             </div>
         </div>
@@ -23,12 +23,13 @@ Movie delete
 
 {% block film_blog_content %}
 
-<h1 style="text-align:center">Estás seguro de eliminar la pelicula: {{ movie.title }}?</h1>
+<h1>Estás seguro de eliminar el siguiente Comentario?</h1>
+<p>{{ comment.text }}</p>
 
-<form style="text-align:center" action="" method="POST">
+<form action="" method="POST">
     {% csrf_token %}
     <input class="btn btn-danger" type="submit" value="Si, eliminar.">
-    <a class="btn btn-primary" href="{% url 'movie:movie-list' %}" >Cancelar</a>
+    <a class="btn btn-primary" href="{% url 'serie:serie-detail' comment.serie.id %}" >Cancelar</a>
 </form>
 
 {% endblock %}

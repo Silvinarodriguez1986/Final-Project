@@ -2,7 +2,7 @@
 /*!
 * Start Bootstrap - Clean Blog v6.0.8 (https://startbootstrap.com/theme/clean-blog)
 * Copyright 2013-2022 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-clean-blog/blob/master/LICENSE)
+* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-clean-blog/blob/er/LICENSE)
 */
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
@@ -156,6 +156,7 @@ h6, .h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+  font: Times 120% cursive;
 }
 
 abbr[title],
@@ -11250,7 +11251,7 @@ header.masthead .site-heading .h1 {
 .button_custom {
 	position:relative;
 	top:5px;
-  left: 70%;
+  left: 50%;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
 	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
 	background-color:#ffffff;

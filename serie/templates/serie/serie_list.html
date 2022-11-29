@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block film_blog_title %}
-Movie list
+Serie list
 {% endblock %}
 
 {% block film_blog_header %}
@@ -12,35 +12,34 @@ Movie list
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
                 <div class="site-heading">
-                    <h1>Listado de peliculas</h1>
+                    <h1>Listado de series</h1>
                 </div>
             </div>
         </div>
         {% if user.is_authenticated and user.is_staff %}
-            <a class="button_custom" href="{% url 'movie:movie-add' %}">Crear nueva Pelicula</a>
+        <a class="button_custom" href="{% url 'serie:serie-add' %}">Crear nueva Serie</a>
         {% endif %}
     </div>
 </header>
 {% endblock %}
 
-
 {% block film_blog_content %}
-    {% for movie in movie_list %}
+    {% for serie in serie_list %}
         <!-- Post preview-->
         <div class="post-preview">
-            <a href="{% url 'movie:movie-detail' movie.id %}">
-                <h2 class="post-title">Titulo: {{ movie.title }}</h2>
-                <h3 class="post-subtitle">Genero: {{ movie.genre}}</h3>
-                <h3 class="post-subtitle">Duracion: {{ movie.duration}} minutos</h3>
+            <a href="{% url 'serie:serie-detail' serie.id %}">
+                <h2 class="post-title">Titulo: {{ serie.title }}</h2>
+                <h3 class="post-subtitle">Genero: {{ serie.genre}}</h3>
+                <h3 class="post-subtitle">Temporadas: {{ serie.seasons_number}}</h3>
+                <h3 class="post-subtitle">Capitulos: {{ serie.chapters_number}} x {{ serie.duration}} minutos</h3>
             </a>
             <p class="post-meta">
                 Creado por
-                <span style="color: #0b4956;" href="">{{ movie.owner.username }}</span>
-                ( {{ movie.created_at }} )
+                <span style="color: #0b4956;" href="">{{ serie.owner.username }}</span>
+                ( {{ serie.created_at }} )
             </p>
         </div>
         <!-- Divider-->
         <hr class="my-4" />
     {% endfor %}
 {% endblock %}
-

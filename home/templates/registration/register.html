@@ -6,13 +6,12 @@ Register
 {% endblock %}
 
 {% block film_blog_header %}
-<header class="masthead" style="background-image: url('/static/home/assets/img/home-bg.jpg')">
+<header class="masthead" style="background-image: url('/static/home/assets/img/Buscador.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
                 <div class="site-heading">
                     <h1>Registrar Nuevo Usuario</h1>
-                    <span class="subheading">My blog CoderHouse</span>
                 </div>
             </div>
         </div>
@@ -22,10 +21,12 @@ Register
 
 {% block film_blog_content %}
 
-<form action="" method="POST">
+<form action="" method="POST" style="text-align:center">
+    <hr>
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" class="btn btn-primary" value="Registrar usuario" />
+    <hr>
 </form>
 
 {% endblock %}
