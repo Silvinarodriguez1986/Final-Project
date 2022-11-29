@@ -1,6 +1,23 @@
 {% extends "home/index.html" %}
 {% load static %}
 
+{% block film_blog_header %}
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('../../static/home/assets/img/Series.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                            <h1>Buscador de contenido</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
+        </div>
+    </header>
+{% endblock %}
+
+
 {% block film_blog_content %}
         <!-- Buscador -->
         <div class="post-preview" style="text-align:center">
@@ -33,7 +50,7 @@
                     </a>
                     <p class="post-meta">
                         Creado por
-                        <a href="">{{ movie.owner.username }}</a> 
+                        <a>{{ movie.owner.username }}</a> 
                         en {{ movie.created_at }}
                     </p>
                 </div>
@@ -49,13 +66,16 @@
                     </a>
                     <p class="post-meta">
                         Creado por
-                        <a href="">{{ serie.owner.username }}</a> 
+                        <a>{{ serie.owner.username }}</a> 
                         en {{ serie.created_at }}
                     </p>
                 </div>
                 <hr class="my-4" />
             {% endfor %}
-        {% else %}
+        
+        {% endif %}
+        
+        {% if not movies and not series %}
             <p class="post-meta" style="text-align:center">
                 Por el momento no se encontro ninguna referencia.
             </p>

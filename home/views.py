@@ -79,9 +79,16 @@ def user_update(request):
             return redirect("home:index")
 
     form = UserUpdateForm(model_to_dict(user))
+    avatars = Avatar.objects.filter(user=request.user.id)
+
+    if avatars.exists():
+        dictionary = {"form": form, "avatar_url": avatars[0].image.url}
+    else:
+        dictionary = {"form": form}
+
     return render(
         request=request,
-        context={"form": form},
+        context=dictionary,
         template_name="registration/user_form.html",
     )
 

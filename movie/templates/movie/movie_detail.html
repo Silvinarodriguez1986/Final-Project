@@ -6,7 +6,11 @@ Movie detail
 {% endblock %}
 
 {% block film_blog_header %}
-<header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
+    {% if not movie.image %}
+    <header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
+    {% else %}
+    <header class="masthead" style="background-image:url('{{ movie.image.url }}')">
+    {% endif %}
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
@@ -16,7 +20,6 @@ Movie detail
                 </div>
             </div>
         </div>
-        <a class="button_custom" href="{% url 'movie:movie-add' %}">Crear nueva pelicula</a>
     </div>
 </header>
 {% endblock %}
@@ -25,28 +28,35 @@ Movie detail
 {% block film_blog_content %}
 <!-- Post preview-->
 <div class="post-preview">
-    <h3 class="post-subtitle">Genero: {{ movie.genre }}</h3>
-    
+    <h2 class="post-subtitle" style="text-align:center"> Titulo oficial: {{movie.title}}</h2>
+    <hr>
     <p class="post-meta">
-        Creado por 
-        <span style="color: #0b4956;" href="">{{ movie.owner.username }}</span>
-        ( {{ movie.created_at }} )
-        <br>
-        Última fecha de actualización {{ movie.updated_at }}
+        Genero: {{ movie.genre }} <br>
+        Duración: {{ movie.duration}} minutos<br>
     </p>
-
+    <hr>
      <!-- Image -->
      {% if movie.image %}
         <div style="text-align: center;">
             <img height="250px" src="{{ movie.image.url }}">
         </div>
     {% endif %}
+    <hr>
+
+    <p class="post-meta">
+        Apartado creado por 
+        <span style="color: #0b4956;" href="">{{ movie.owner.username }}</span>
+        ( {{ moviie.created_at }} )
+        <br>
+        Última fecha de actualización {{ movie.updated_at }}
+    </p>
 
     <!-- Description -->
+    <h3>Sinopsis: </h3>
     <p class="card-text ">{{ movie.description|safe }}</p> <!-- ckeditor-->
     
     <!-- Update-Delete link only for the owner -->
-    {% if user == movie.owner or user.is_superuser %}
+    {% if user.is_superuser %}
     <p style="text-align: center">
         <a href="{% url 'movie:movie-update' movie.id %}">
             <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar Pelicula

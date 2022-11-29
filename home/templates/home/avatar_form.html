@@ -12,7 +12,6 @@ Avatar Load
             <div class="col-md-15 col-lg-16 col-xl-14">
                 <div class="site-heading">
                     <h1>Cargar Imagen de Avatar</h1>
-                    <span class="subheading">My blog CoderHouse</span>
                 </div>
             </div>
         </div>
@@ -22,8 +21,8 @@ Avatar Load
 
 
 {% block film_blog_content %}
-    <h1>Usuario: {{user.username}} | {{user.first_name}} {{user.last_name}}</h1>
-    <form method="POST" enctype="multipart/form-data">
+    <h1 style="text-align:center">Usuario: {{user.username}} | {{user.first_name}} {{user.last_name}}</h1>
+    <form method="POST" enctype="multipart/form-data" style="text-align:center">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Cargar Imagen</button>

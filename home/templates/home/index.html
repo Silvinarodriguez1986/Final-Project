@@ -10,7 +10,7 @@
         <meta name="author" content="" />
         <title>
             {% block film_blog_title %}
-                Home
+                Moviecon - Home
             {% endblock %}
         </title>
         <link rel="icon" type="image/x-icon" href="{% static 'home/assets/favicon.ico' %}" />
@@ -40,10 +40,10 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
                         
                         {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:user-update' %}">Editar usuario</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión - {{ user.username }}</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:user-update' %}">Editar usuario</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión - {{ user.username }}</a></li>
                         {% else %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -58,21 +58,26 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
                             {% if user.is_authenticated %}
-                                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-                                <h2>Bienvenido</h2>
+                                <p style="text-align:left"><small>Registrado como:</small></p>
+                                <h2>{{ user.first_name }} {{ user.last_name }} | {{ user.username}}</h2>
+                                
                             {% else %}
                                 <h1>Moviecon</h1>
+                                <h2>Bienvenido - registrate e inicia sesion</h2>
                                 <span class="subheading">Let's have fun</span>
+
                             {% endif %}
                             {% if avatar_url %}
-                                <a href="{% url 'home:avatar-load' %}"><img height="260px" src="{{avatar_url}}"></a>
+                                <a><img height="260px" src="{{avatar_url}}"></a>
                             {% endif %}
                         </div>
                     </div>
                 </div>
                 <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
-                {% if not avatar_url %}
+                {% if user.is_authenticated %}
+                    {% if not avatar_url %}
                     <a class="button_custom" href="{% url 'home:avatar-load' %}">Cargar Avatar</a>
+                    {% endif %}
                 {% endif %}
             </div>
         </header>
@@ -105,12 +110,24 @@
                     <!-- Post preview-->
                     <div class="#!">
                         <a href="#!">
-                            <h2 class="post-title">Somos los mejores en python</h2>
-                            <h6 class="post-subtitle">Bueno quizas no los mejores pero nos esforzamos mucho</h6>
+
                         </a>
-                        <p>Silvina Rodriguez</p>
-                        <p>Juan Pablo Gómez Cristancho</p>
-                        <p>Jose Fernandez</p>
+                        <div style="text-align:center">
+                            <h1>Acerca de la pagina web</h1><hr>
+                            <p>Esta una pagina web en la cual puedes encontrar apartados de las mejores peliculas y series conocidas. Estos apartados estan diseñados para darte una breve synopsis de cada una de peliculas o series para que así puedas compartir y comentar tu opinión/review.</p>
+                            <p>Para esto deberas registrarte, loguearte, ir la buscador y buscar la pelicula o serie, y en la parte inferior de los detalles de las peliculas, podreas realizar tu comentario/review.</p><hr>
+
+
+                            <h1>Acerca de los autores</h1><hr>
+                                <h6 class="post-title"> Somos los mejores en python</h6>
+                                <h6 class="post-subtitle"> Bueno quizas no los mejores pero nos esforzamos mucho</h6>
+                            <hr><h3>Silvina Rodriguez</h3>
+                            <p>Soy Silvina Rodriguez, me gusta tomar cursos de programación.</p>
+                            <hr><h3>Juan Pablo Gómez Cristancho</h3>
+                            <p>Soy Juan Pablo Gómez Cristancho, me gusta tomar cursos de programación.</p>
+                            <hr><h3>Jose Fernandez</h3>
+                            <p>Soy Jose Fernandez, me gusta tomar cursos de programación.</p>
+                        </div>
                     </div>
                     <!-- Pager-->
                     {% endblock %}

@@ -12,11 +12,10 @@ Movie delete
             <div class="col-md-15 col-lg-16 col-xl-14">
                 <div class="site-heading">
                     <h1>{{ movie.name }}</h1>
-                    <span class="subheading">Eliminar Pelicula</span>
+                    <h1>Eliminar pelicula</h1>
                 </div>
             </div>
         </div>
-        <a class="button_custom" href="{% url 'movie:movie-add' %}">Crear nueva pelicula</a>
     </div>
 </header>
 {% endblock %}
@@ -24,9 +23,9 @@ Movie delete
 
 {% block film_blog_content %}
 
-<h1>Estás seguro de eliminar la pelicula: {{ movie.title }}?</h1>
+<h1 style="text-align:center">Estás seguro de eliminar la pelicula: {{ movie.title }}?</h1>
 
-<form action="" method="POST">
+<form style="text-align:center" action="" method="POST">
     {% csrf_token %}
     <input class="btn btn-danger" type="submit" value="Si, eliminar.">
     <a class="btn btn-primary" href="{% url 'movie:movie-list' %}" >Cancelar</a>
